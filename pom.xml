@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.outofbits.pokemon</groupId>
+  <artifactId>pokeapi-mapper</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <rdf4j.version>3.0.0-M1</rdf4j.version>
+    <springframework.version>5.1.8.RELEASE</springframework.version>
+    <slf4j.version>1.7.26</slf4j.version>
+    <log4j.version>2.12.0</log4j.version>
+    <jackson.version>2.9.9</jackson.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+    <!-- SLF4J / Log4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <!-- Guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.0-jre</version>
+    </dependency>
+    <!-- thin REST client -->
+    <dependency>
+      <groupId>com.konghq</groupId>
+      <artifactId>unirest-java</artifactId>
+      <version>2.3.08</version>
+    </dependency>
+    <!-- Jackson JSON mapper -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <!-- RDF4J -->
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-model</artifactId>
+      <version>${rdf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-rio-api</artifactId>
+      <version>${rdf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-rio-nquads</artifactId>
+      <version>${rdf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-rio-trig</artifactId>
+      <version>${rdf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-rio-turtle</artifactId>
+      <version>${rdf4j.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>com.github.ansell.rdf4j-schema-generator</groupId>
+        <artifactId>schema-generator-maven-plugin</artifactId>
+        <version>0.4.2</version>
+        <executions>
+          <execution>
+            <id>generate-schemas</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <output>${project.build.directory}/generated-sources/rdf4j-schemas</output>
+          <packageName>com.outofbits.pokemon.pokeapi.ontology</packageName>
+          <preferredLanguage>en</preferredLanguage>
+          <createResourceBundles>true</createResourceBundles>
+          <constantCase>UPPER_CAMEL</constantCase>
+          <createStringConstants>true</createStringConstants>
+          <stringConstantCase>UPPER_CAMEL</stringConstantCase>
+          <stringConstantPrefix>_</stringConstantPrefix>
+          <stringConstantSuffix>_STRING</stringConstantSuffix>
+          <schemas>
+            <schema>
+              <className>Pokemon</className>
+              <prefix>http://pokemon.outofbits.com/ontology#</prefix>
+              <url>https://pokemon.outofbits.com/ontology</url>
+            </schema>
+          </schemas>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

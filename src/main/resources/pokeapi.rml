@@ -1,0 +1,57 @@
+@prefix : <http://pokemon.outofbits.com/pokeapi/>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix fno: <http://semweb.datasciencelab.be/ns/function#>.
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#>.
+@prefix carml: <http://carml.taxonic.com/carml/>.
+
+@prefix poke: <http://pokemon.outofbits.com/ontology#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<#PokemonMapping> a rr:TriplesMap ;
+  rml:logicalSource [
+      rml:source [
+        a carml:Stream ;
+        carml:streamName "pokemon-stream" ;
+      ] ;
+      rml:referenceFormulation ql:JSONPath ;
+      rml:iterator "$" ;
+    ] ;
+
+  rr:subjectMap [
+      rr:template "http://pokemon.outofbits.com/instance/pokemon/{name}" ;
+      rr:class poke:Pokémon ;
+    ] ;
+
+  rr:predicateObjectMap [
+    rr:predicate rdfs:label ;
+    rr:objectMap [
+      carml:multiReference "names.[*].name"
+    ] ;
+  ] ;
+
+  .
+
+<#PokedexMapping> a rr:TriplesMap ;
+   rml:logicalSource [
+       rml:source [
+         a carml:Stream ;
+         carml:streamName "pokedex-stream" ;
+       ] ;
+       rml:referenceFormulation ql:JSONPath ;
+       rml:iterator "$" ;
+     ] ;
+
+   rr:subjectMap [
+       rr:template "http://pokemon.outofbits.com/instance/pokedex/{name}" ;
+       rr:class poke:Pokédex ;
+     ] ;
+
+   rr:predicateObjectMap [
+      rr:predicate poke:hasPokédexEntry ;
+      rr:objectMap [
+        carml:multiTemplate "http://pokemon.outofbits.com/instance/pokedex/{$.pokemon_entries.[*]..name}/entry/{$.pokemon_entries.[*].entry_number}" ;
+      ] ;
+    ] ;
+  .
