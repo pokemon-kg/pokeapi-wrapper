@@ -2,7 +2,7 @@ package com.outofbits.pokemon.pokeapi.stream;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import com.outofbits.pokemon.pokeapi.PokeAPIConfiguration;
+import com.outofbits.pokemon.pokeapi.config.PokeAPIConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class PokeAPIStreamBuilder {
 
-  private PokeAPIConfiguration pokeAPIConfiguration;
+  private PokeAPIConfig pokeAPIConfig;
 
   @Autowired
-  public PokeAPIStreamBuilder(PokeAPIConfiguration pokeAPIConfiguration) {
-    this.pokeAPIConfiguration = pokeAPIConfiguration;
+  public PokeAPIStreamBuilder(PokeAPIConfig pokeAPIConfig) {
+    this.pokeAPIConfig = pokeAPIConfig;
   }
 
   public PokeAPIStream build(PokeAPIOption option) {
     checkArgument(option != null, "The PokeAPI option must not be null.");
-    String apiURL = pokeAPIConfiguration.getApiURL();
+    String apiURL = pokeAPIConfig.getApiURL();
     if (!apiURL.endsWith("/")) {
       apiURL += "/";
     }
-    return new PokeAPIStream(apiURL + option.getAPIPath(), pokeAPIConfiguration.getCacheDirPath(),
-        pokeAPIConfiguration.isNoCache());
+    return new PokeAPIStream(apiURL + option.getAPIPath(), pokeAPIConfig.getCacheDirPath(),
+        pokeAPIConfig.isNoCache());
   }
 }

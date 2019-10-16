@@ -10,11 +10,11 @@
   <packaging>jar</packaging>
 
   <properties>
-    <rdf4j.version>3.0.0-M1</rdf4j.version>
-    <springframework.version>5.1.8.RELEASE</springframework.version>
-    <slf4j.version>1.7.26</slf4j.version>
-    <log4j.version>2.12.0</log4j.version>
-    <jackson.version>2.9.9</jackson.version>
+    <rdf4j.version>3.0.1</rdf4j.version>
+    <springframework.version>5.2.0.RELEASE</springframework.version>
+    <slf4j.version>1.7.28</slf4j.version>
+    <log4j.version>2.12.1</log4j.version>
+    <jackson.version>2.10.0</jackson.version>
   </properties>
 
   <dependencies>
@@ -83,16 +83,10 @@
       <artifactId>rdf4j-rio-trig</artifactId>
       <version>${rdf4j.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.eclipse.rdf4j</groupId>
-      <artifactId>rdf4j-rio-turtle</artifactId>
-      <version>${rdf4j.version}</version>
-    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-
       <plugin>
         <groupId>com.github.ansell.rdf4j-schema-generator</groupId>
         <artifactId>schema-generator-maven-plugin</artifactId>
@@ -107,7 +101,7 @@
           </execution>
         </executions>
         <configuration>
-          <output>${project.build.directory}/generated-sources/rdf4j-schemas</output>
+          <outputDirectory>${project.build.directory}/generated-sources/rdf4j-schemas</outputDirectory>
           <packageName>com.outofbits.pokemon.pokeapi.ontology</packageName>
           <preferredLanguage>en</preferredLanguage>
           <createResourceBundles>true</createResourceBundles>
@@ -120,7 +114,7 @@
             <schema>
               <className>Pokemon</className>
               <prefix>http://pokemon.outofbits.com/ontology#</prefix>
-              <url>https://pokemon.outofbits.com/ontology</url>
+              <file>ontology/pokemon.ttl</file>
             </schema>
           </schemas>
         </configuration>

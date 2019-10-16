@@ -2,7 +2,7 @@ package com.outofbits.pokemon.pokeapi.transformer.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import com.outofbits.pokemon.pokeapi.TransformerConfiguration;
+import com.outofbits.pokemon.pokeapi.config.TransformerConfig;
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
@@ -24,8 +24,8 @@ public final class IRIUtil {
   private String baseIRI;
 
   @Autowired
-  public IRIUtil(TransformerConfiguration transformerConfiguration) {
-    this.baseIRI = transformerConfiguration.getBaseIRI();
+  public IRIUtil(TransformerConfig transformerConfig) {
+    this.baseIRI = transformerConfig.getBaseIRI();
     if (!baseIRI.endsWith("/")) {
       baseIRI += "/";
     }
@@ -118,6 +118,19 @@ public final class IRIUtil {
     checkArgument(abilityName != null && !abilityName.isEmpty(),
         "The ability name must not be null or empty.");
     return vf.createIRI(baseIRI + "ability/" + abilityName);
+  }
+
+  /**
+   * Constructs {@code :baseiri/berryflavor/:name} for a flavor with the given {@code flavorName}.
+   *
+   * @param flavorName name of the flavor for which to create this IRI.
+   * @return {@code IRI} for the given flavor name.
+   * @throws IllegalArgumentException if the given name is an empty string or null.
+   */
+  public IRI createBerryFlavorIRI(String flavorName) {
+    checkArgument(flavorName != null && !flavorName.isEmpty(),
+        " The flavor name must not be null or an empty string.");
+    return vf.createIRI(baseIRI + "berry-flavor/" + flavorName);
   }
 
 }

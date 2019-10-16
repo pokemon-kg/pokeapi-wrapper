@@ -26,6 +26,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A {@link PokeAPIStream} walks through a list of a certain PokeAPI artifacts and fetches the
+ * details of artifacts.
+ *
  * @author Kevin Haller
  * @version 1.0
  * @since 1.0
@@ -34,11 +37,11 @@ public class PokeAPIStream {
 
   private static final Logger logger = LoggerFactory.getLogger(PokeAPIStream.class);
 
-  private ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
-  private String apiURL;
-  private String cachingDirPath;
-  private boolean noCache;
+  private final String apiURL;
+  private final String cachingDirPath;
+  private final boolean noCache;
 
   /**
    * Creates a new {@link PokeAPIStream} reading in all Pokemon from the given {@code apiURL} of

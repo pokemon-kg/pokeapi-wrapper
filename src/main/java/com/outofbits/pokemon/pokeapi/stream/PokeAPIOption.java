@@ -50,7 +50,12 @@ public enum PokeAPIOption {
       return "pokemon-color";
     }
   },
-  ;
+  BERRY_FALVOR {
+    @Override
+    public String getAPIPath() {
+      return "berry-flavor";
+    }
+  };
 
   public abstract String getAPIPath();
 }
