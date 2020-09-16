@@ -13,7 +13,7 @@
     <rdf4j.version>3.0.1</rdf4j.version>
     <springframework.version>5.2.0.RELEASE</springframework.version>
     <slf4j.version>1.7.28</slf4j.version>
-    <log4j.version>2.12.1</log4j.version>
+    <log4j.version>2.13.3</log4j.version>
     <jackson.version>2.10.0</jackson.version>
   </properties>
 
